@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import { Nunito } from "next/font/google";
-import { Toaster } from "sonner";
 import { ClerkProvider } from "@clerk/nextjs";
 import { frFR } from "@clerk/localizations";
 
 import "./globals.css";
+import { Toaster } from "@/components/ui/sonner";
 
 const font = Nunito({ subsets: ["latin"] });
 
