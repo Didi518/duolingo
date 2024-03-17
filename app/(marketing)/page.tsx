@@ -28,12 +28,20 @@ export default function Home() {
           </ClerkLoading>
           <ClerkLoaded>
             <SignedOut>
-              <SignUpButton mode="modal" afterSignInUrl="/apprendre">
+              <SignUpButton
+                mode="modal"
+                afterSignInUrl="/apprendre"
+                afterSignUpUrl="/apprendre"
+              >
                 <Button size={"lg"} variant={"secondary"} className="w-full">
                   Commencer
                 </Button>
               </SignUpButton>
-              <SignInButton mode="modal" afterSignInUrl="/apprendre">
+              <SignInButton
+                mode="modal"
+                afterSignInUrl="/apprendre"
+                afterSignUpUrl="/apprendre"
+              >
                 <Button
                   size={"lg"}
                   variant={"primaryOutline"}
@@ -50,7 +58,7 @@ export default function Home() {
                 className="w-full"
                 asChild
               >
-                <Link href={"/cours"}>Continuer les Cours</Link>
+                <Link href={"/apprendre"}>Continuer les Cours</Link>
               </Button>
             </SignedIn>
           </ClerkLoaded>
