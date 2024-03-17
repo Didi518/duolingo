@@ -1,24 +1,22 @@
-import { FeedWrapper } from "@/components/feed-wrapper";
-import { StickyWrapper } from "@/components/sticky-wrapper";
-import { UserProgress } from "@/components/user-progress";
-import { Header } from "./header";
+import { getCourses, getUserProgress } from "@/db/queries";
 
-const LearnPage = () => {
+import { List } from "./list";
+
+const CoursesPage = async () => {
+  const coursesData = getCourses();
+  const userProgressData = getUserProgress();
+
+  const [courses, userProgress] = await Promise.all([
+    coursesData,
+    userProgressData,
+  ]);
+
   return (
-    <div className="flex flex-row-reverse gap-[48px] px-6">
-      <StickyWrapper>
-        <UserProgress
-          activeCourse={{ title: "Espagnol", imageSrc: "/es.svg" }}
-          hearts={5}
-          points={100}
-          hasActiveSubscription={false}
-        />
-      </StickyWrapper>
-      <FeedWrapper>
-        <Header title="Espagnol" />
-      </FeedWrapper>
+    <div className="h-full max-w-[912px] px-3 mx-auto">
+      <h1 className="text-2xl font-bold text-neutral-700">Language Enseigné</h1>
+      <List courses={courses} activeCourseId={userProgress?.activeCourseId} />
     </div>
   );
 };
 
-export default LearnPage;
+export default CoursesPage;
