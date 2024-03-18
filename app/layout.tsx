@@ -22,7 +22,7 @@ export default function RootLayout({
   return (
     <ClerkProvider localization={frFR}>
       <html lang="fr">
-        <body className={font.className}>
+        <body suppressHydrationWarning={true} className={font.className}>
           <Toaster />
           <ExitModal />
           {children}
