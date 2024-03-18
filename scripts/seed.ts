@@ -179,6 +179,30 @@ const main = async () => {
       },
     ]);
 
+    await db.insert(schema.challenges).values([
+      {
+        id: 4,
+        lessonId: 2,
+        type: "SELECT",
+        order: 1,
+        question: "Lequel d'entre eux est \"l'homme\"?",
+      },
+      {
+        id: 5,
+        lessonId: 2,
+        type: "ASSIST",
+        order: 2,
+        question: '"l\'homme"',
+      },
+      {
+        id: 6,
+        lessonId: 2,
+        type: "SELECT",
+        order: 3,
+        question: 'Lequel d\'entre eux est "le robot"?',
+      },
+    ]);
+
     console.log("Manipulation terminée");
   } catch (error) {
     console.error(error);
