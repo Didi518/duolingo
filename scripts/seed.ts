@@ -92,7 +92,7 @@ const main = async () => {
         lessonId: 1,
         type: "SELECT",
         order: 1,
-        question: "Parmis ces individus, lequel est l'homme?",
+        question: "Lequel d'entre eux est \"l'homme\"?",
       },
     ]);
 
