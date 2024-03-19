@@ -7,7 +7,7 @@ import { useState, useTransition } from "react";
 import { useAudio, useMount, useWindowSize } from "react-use";
 import { toast } from "sonner";
 
-import { challengeOptions, challenges } from "@/db/schema";
+import { challengeOptions, challenges, userSubscription } from "@/db/schema";
 import { reduceHearts } from "@/actions/user-progress";
 import { upsertChallengeProgress } from "@/actions/challenge-progress";
 import { useHeartsModal } from "@/store/use-hearts-modal";
@@ -27,7 +27,11 @@ type Props = {
     completed: boolean;
     challengeOptions: (typeof challengeOptions.$inferSelect)[];
   })[];
-  userSubscription: any;
+  userSubscription:
+    | (typeof userSubscription.$inferSelect & {
+        isActive: boolean;
+      })
+    | null;
 };
 
 export const Quiz = ({

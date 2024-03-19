@@ -6,10 +6,13 @@ import { and, eq } from "drizzle-orm";
 import { auth, currentUser } from "@clerk/nextjs";
 
 import db from "@/db/drizzle";
-import { getCourseById, getUserProgress } from "@/db/queries";
+import {
+  getCourseById,
+  getUserProgress,
+  getUserSubscription,
+} from "@/db/queries";
 import { challengeProgress, challenges, userProgress } from "@/db/schema";
-
-const POINTS_TO_REFILL = 10;
+import { POINTS_TO_REFILL } from "@/constants";
 
 export const upsertUserProgress = async (courseId: number) => {
   const { userId } = auth();
@@ -24,10 +27,10 @@ export const upsertUserProgress = async (courseId: number) => {
   if (!course) {
     throw new Error("Enseignement introuvable");
   }
-  // TODO:: autoriser les unités et leçons
-  //   if (!course.units.length || !course.units[0].lessons.length) {
-  //     throw new Error("Enseignement vide");
-  //   }
+
+  if (!course.units.length || !course.units[0].lessons.length) {
+    throw new Error("Enseignement vide");
+  }
 
   const existingUserProgress = await getUserProgress();
 
@@ -63,7 +66,7 @@ export const reduceHearts = async (challengeId: number) => {
   }
 
   const currentUserProgress = await getUserProgress();
-  //TODO: get user sub
+  const userSubscription = await getUserSubscription();
 
   const challenge = await db.query.challenges.findFirst({
     where: eq(challenges.id, challengeId),
@@ -92,7 +95,9 @@ export const reduceHearts = async (challengeId: number) => {
     throw new Error("Progrès introuvables");
   }
 
-  // TODO: sub
+  if (userSubscription?.isActive) {
+    return { error: "subscription" };
+  }
 
   if (currentUserProgress.hearts === 0) {
     return { error: "hearts" };
